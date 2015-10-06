@@ -82,6 +82,10 @@ class BaseAction(argparse.Action):
         raise NotImplementedError(_('.cmd() not defined'))
 
 
+class GenSetupPy(BaseAction):
+    def cmd(self, namespace):
+        self.setup.gen()
+
 class Interactive(BaseAction):
     def __init__(self, *args, **kwargs):
         super(Interactive, self).__init__(*args, **kwargs)
@@ -229,6 +233,9 @@ def main():
 
     parser2 = subparsers.add_parser('new', help='%(prog)s will raise a cli to build a new setup.json')
     parser2.add_argument('run', nargs=0, action=Interactive, help=argparse.SUPPRESS)
+
+    parser2 = subparsers.add_parser('gen', help='%(prog)s will raise a cli to build a new setup.json')
+    parser2.add_argument('run', nargs=0, action=GenSetupPy, help=argparse.SUPPRESS)
 
     # parser_gen = subparsers.add_parser('gen', help='%(prog)s will generate a valid setup.py file based on the current setup.json')
     # parser_gen.add_argument('run', nargs=0, action=NestNew, help=argparse.SUPPRESS)
