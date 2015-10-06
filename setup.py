@@ -1,6 +1,6 @@
 from setuptools import setup
 setup(
-{
+
     name = "nest",
     author = "not provided",
     author_email = "not provided",
@@ -13,9 +13,9 @@ setup(
         "nest"
     ],
     entry_points = {
-        "console_scripts": {
-            "nest": "nest:main"
-        }
+        "console_scripts": [
+            "nest=nest:main"
+        ]
     }
-}
+
 )

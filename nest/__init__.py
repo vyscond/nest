@@ -48,14 +48,12 @@ class Setup(OrderedDict):
         '''generates a new setup.py based on your setup.json'''
         setuppy = copy.deepcopy(self)
         # Adjust console scripts
-        try:
-            console_scripts = setuppy['entry_points']['console_scripts']
-            self['entry_points']['console_scripts'] = list(
-                map('{name}={module}'.format, console_scripts)
+        setuppy['entry_points']['console_scripts'] = []
+        for name, module in self['entry_points']['console_scripts'].items():
+            setuppy['entry_points']['console_scripts'].append(
+                '{}={}'.format(name, module)
             )
-        except Exception:
-            print('console scripts not defined')
-        setuppy = json.dumps(self, indent=4)
+        setuppy = json.dumps(setuppy, indent=4)
         # Rendering file based entries
         for key in ['long_description']:
             if re.match(TEXT_FILES, self[key]) :
@@ -65,6 +63,7 @@ class Setup(OrderedDict):
         # Replacing ":" for "="
         for basekey in self.keys():
             setuppy = setuppy.replace('"'+basekey+'":', basekey+' =')
+        setuppy = setuppy[1:-1]
         with open('setup.py', 'w') as f:
             f.write(SETUPPY.format(args=setuppy))
 
