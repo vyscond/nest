@@ -3,6 +3,7 @@ import re
 import json
 import argparse
 import pip
+import copy
 from collections import OrderedDict
 from setuptools import find_packages
 
@@ -45,7 +46,7 @@ class Setup(OrderedDict):
 
     def gen(self):
         '''generates a new setup.py based on your setup.json'''
-        setuppy = self.copy()
+        setuppy = copy.deepcopy(self)
         # Adjust console scripts
         try:
             console_scripts = setuppy['entry_points']['console_scripts']
