@@ -1,0 +1,3 @@
+import nest
+
+s = nest('.')
