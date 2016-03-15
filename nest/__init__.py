@@ -53,13 +53,13 @@ class Setup(OrderedDict):
                 '{}={}'.format(name, module)
             )
         setuppy = json.dumps(setuppy, indent=4)
-        # - Rendering file based entries
+        # - Adjust file based entries
         for key in ['long_description']:
             if re.match(TEXT_FILES, self[key]) :
                 setuppy=setuppy.replace(
                     '"'+self[key]+'"', '"".join(open("'+self[key]+'"))'
                 )
-        # Replacing ":" for "="
+        # - Replacing ":" for "="
         for basekey in self.keys():
             setuppy = setuppy.replace('"'+basekey+'":', basekey+' =')
         setuppy = setuppy[1:-1]
