@@ -16,10 +16,31 @@ CONSOLE_SCRIPT = '^([A-Za-z]+)(\_([A-Za-z]+))*\=([A-Za-z]+(\_[A-Za-z]+)*)(\.[A-Z
 CLASSIFIERS = ''.join(open('classifiers.txt')).split('\n')
 
 
+class ConsoleScripts(OrderedDict):
+    
+    def add(self)
+
 class Setup(OrderedDict):
+    
+    def __init__(self, fname='setup.json'):
+        try:
+            with open(fname) as f:
+                setup = json.load(f, object_pairs_hook=OrderedDict)
+        except IOError:
+            setup = OrderedDict()
+        super(Setup, self).__init__(setup)
+
+    def __str__(self):
+        return json.dumps(self, indent=4)
+
+    def save(self):
+        with open(self.file, 'w') as f:
+            f.write(str(self))
+
+class Setup2(OrderedDict):
 
     def __init__(self):
-        self.file = '.setup.json'
+        self.file = 'setup.json'
         try:
             with open(self.file) as f:
                 setup = json.load(f, object_pairs_hook=OrderedDict)

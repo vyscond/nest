@@ -19,9 +19,11 @@ class GenSetupPy(BaseAction):
     def cmd(self, namespace):
         self.setup.gen()
 
+
 class Interactive(BaseAction):
     def __init__(self, *args, **kwargs):
         super(Interactive, self).__init__(*args, **kwargs)
+        
         self.NAME = '[nest] project name > '
         self.AUTHOR = '[nest] project author > '
         self.EMAIL = '[nest] author_email > '
